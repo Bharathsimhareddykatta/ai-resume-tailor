@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>AI Resume Tailor</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 40px;
-      line-height: 1.7;
-      color: #2c3e50;
-    }
-    h1, h2, h3 {
-      color: #34495e;
-    }
-    code, pre {
-      background: #f4f4f4;
-      padding: 8px;
-      border-radius: 5px;
-      display: block;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 10px;
-    }
-    table, th, td {
-      border: 1px solid #bbb;
-      padding: 10px;
-      text-align: left;
-    }
-    .highlight {
-      background-color: #eafaf1;
-      padding: 15px;
-      border-left: 5px solid #2ecc71;
-      margin: 10px 0;
-    }
-  </style>
-</head>
-<body>
+
 
 <h1>📄 AI Resume Tailor</h1>
 
