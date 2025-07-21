@@ -1,7 +1,7 @@
 streamlit
 python-docx
-python-dotenv
-openai
 PyMuPDF
-docx2txt
+requests
+python-dotenv
 scikit-learn
+nltk
