@@ -1,16 +1,19 @@
 import os
 import requests
+import time
 from dotenv import load_dotenv
 
+load_dotenv()
+
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+MODEL = os.getenv("OPENROUTER_MODEL", "mistralai/mixtral-8x7b-instruct")
+TIMEOUT = 45  # seconds
+
+if not OPENROUTER_API_KEY:
+    raise ValueError("🚨 OPENROUTER_API_KEY not found in .env file")
+
+
 def generate_resume_summary(resume_text, job_description):
-    load_dotenv()
-
-    OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-    MODEL = os.getenv("OPENROUTER_MODEL", "mistralai/mixtral-8x7b-instruct")
-
-    if not OPENROUTER_API_KEY:
-        raise ValueError("🚨 OPENROUTER_API_KEY not found in .env file")
-
     prompt = f"""
 You are a professional resume consultant.
 
@@ -44,9 +47,23 @@ Job Description:
         ]
     }
 
-    response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=body)
+    # Retry logic
+    for attempt in range(3):
+        try:
+            response = requests.post(
+                "https://openrouter.ai/api/v1/chat/completions",
+                headers=headers,
+                json=body,
+                timeout=TIMEOUT
+            )
 
-    if response.status_code == 200:
-        return response.json()['choices'][0]['message']['content'].strip()
-    else:
-        raise Exception(f"OpenRouter API Error: {response.status_code} - {response.text}")
+            if response.status_code == 200:
+                return response.json()['choices'][0]['message']['content'].strip()
+            else:
+                raise Exception(f"OpenRouter API Error: {response.status_code} - {response.text}")
+
+        except requests.exceptions.Timeout:
+            print(f"⏱️ Timeout on attempt {attempt + 1}. Retrying...")
+            time.sleep(2)
+
+    raise Exception("❌ OpenRouter API failed after 3 retries due to timeout.")
