@@ -1,0 +1,12 @@
+# 🔒 Hide sensitive files
+.env
+
+# 🗑 Ignore Python build/cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 💻 Ignore system/editor files
+.DS_Store
+.vscode/
