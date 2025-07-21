@@ -1,3 +1,12 @@
+import nltk
+from nltk.corpus import stopwords
+
+# Download stopwords only if not present
+try:
+    stopwords.words('english')
+except LookupError:
+    nltk.download('stopwords')
+
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
