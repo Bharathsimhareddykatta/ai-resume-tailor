@@ -4,3 +4,4 @@ python-dotenv
 openai
 PyMuPDF
 docx2txt
+scikit-learn
